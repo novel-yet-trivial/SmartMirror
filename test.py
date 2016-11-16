@@ -32,6 +32,7 @@ class Label(tk.Label):
 
 class Calendar(tk.Text):
     def __init__(self, master):
+        # we can also apply the defauts like this
         tk.Text.__init__(self, master, width=40, **WIDGET_DEFAULTS)
         self.update_cal()
 
@@ -42,7 +43,7 @@ class Calendar(tk.Text):
         #perhaps add code to calculate how many milliseconds till the end of the month
 
 
-class LiveTime(Label):
+class LiveTime(Label): #here we subclass our own Label, not tk.Label, so the defaults are already applied
     def __init__(self, master):
         Label.__init__(self, master)
         self.update_time()

@@ -4,7 +4,6 @@
 
 import pyowm
 import time
-import threading
 
 try:
     #python3
