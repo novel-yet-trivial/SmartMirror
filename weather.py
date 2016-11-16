@@ -8,25 +8,27 @@ import threading
 
 try:
     #python3
-    from tkinter import *
-except:
+    from tkinter import PhotoImage
+except ImportError:
     #python2
-    from Tkinter import *
+    from Tkinter import PhotoImage
 
-API_KEY = 'your_key_here'
-owm = pyowm.OWM(API_KEY)
 
-observation = owm.weather_at_place('Monterey, CA, US')
+API_KEY = 'your_key_here' # you should read this from a config file
+
 #observation = owm.weather_at_place('Tehran, Iran')#Example of another place (am vs pm)
 #observation = owm.weather_at_coords(36.6002, 121.8947)#Example of coord system
 
-
 class WeatherClass():
     def __init__(self):
+        owm = pyowm.OWM(API_KEY)
+        self.observation = owm.weather_at_place('Monterey, CA, US')
+
+    def update(self):
         time1 = time.localtime(time.time())
 
         '''Get Today's forecast'''
-        weather = observation.get_weather()
+        weather = self.observation.get_weather()
         self.todaysForecast = str(weather).split("status=", 1)[1].replace(">", "")#Search for status and remove ">" from the end
 
         '''Get Current Weather Conditions'''
@@ -64,4 +66,3 @@ class WeatherClass():
         if "mist" in self.currentWeather:
             self.weatherImage = PhotoImage(file="Foggy.png")
 
-#threading.Timer(5, __init__(self).start()
